@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'park#index'
+
+  get 'user_stream' => 'park#index_stream'
+  get 'user_watch' => 'park#index'
+
+  root 'park#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

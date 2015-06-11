@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'socket'               # Get sockets from stdlib
 
 # You might want to change this
 ENV["RAILS_ENV"] ||= "production"
@@ -15,21 +16,20 @@ Signal.trap("TERM") do
 end
 
 
-require 'socket'               # Get sockets from stdlib
-
   # Replace this with your code
+  port = 2000
 
-server = TCPServer.open(2000)  # Socket to listen on port 2000
+Socket.udp_server_loop(port) { |msg, msg_src|
+  text = msg
+  msg_src.reply "aaa"
+  # puts msg_src.port # not able to access port
 
-loop {
-  client = server.accept       # Wait for a client to connect
-  data = client.recv(20)
-  a = data.unpack('b*')
-  b = a.split ""
-       client.puts data
-       client.close                 # Disconnect from the client
+  puts msg_src
   
-   #Rails.logger.auto_flushing = true
-   #Rails.logger.info "This daemon is still running at #{Time.now}.\n"
- } 
-
+  e = Event.find(1)
+  zcaddr = text.slice!(0)
+  sladdr = text.unpack("B*")
+  puts sladdr
+  e.pdata = sladdr[0]
+  e.save
+}
