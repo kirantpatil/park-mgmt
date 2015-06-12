@@ -1,5 +1,6 @@
 $(function() 
      {
+         
          $("#svgload").svg({
            onLoad: function()
                         {
