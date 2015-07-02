@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'puma'
 
+gem 'bootstrap-sass'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
@@ -17,8 +19,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-
-gem 'jquery-svg-rails'
 
 gem 'daemons-rails'
 

@@ -11,12 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608102152) do
+ActiveRecord::Schema.define(version: 20150616131533) do
 
   create_table "events", force: :cascade do |t|
     t.string   "pdata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "ccaddr"
+    t.integer  "ccport"
+    t.integer  "zcaddr"
   end
 
 end

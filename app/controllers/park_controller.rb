@@ -10,8 +10,8 @@ class ParkController < ApplicationController
     response.headers['Content-Type'] = 'text/event-stream'
 
     sse = Reloader::SSE.new(response.stream)
-
     last_updated = Event.last_updated.first
+
     if recently_changed? last_updated
       begin
         sse.write(last_updated, event: 'results')
@@ -29,6 +29,13 @@ class ParkController < ApplicationController
   def recently_changed? last_user
     last_user.created_at > 5.seconds.ago or
       last_user.updated_at > 5.seconds.ago
+  end
+
+  def new_res(status, ss)
+  status.pdata.size.times do |n|
+  ss += 1 if status.pdata[n] == "1"
+  end
+  return ss
   end
 
 end

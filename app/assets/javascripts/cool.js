@@ -1,41 +1,50 @@
-$(function() 
-     {
-         
-         $("#svgload").svg({
-           onLoad: function()
-                        {
-                       var svg = $("#svgload").svg('get');
-          svg.load('assets/drawing_plain.svg', {addTo: true,  changeSize: false});        
-                       },
-        settings: {}
-          });  
-
+$(function() {
+    
+    //$('#svgload').load('assets/dt.svg');
+    $('#svgload').load('assets/drawing_plain.svg');
+    //$('#svgload').load('assets/symbols_new.svg');
          
     var source = new EventSource('/user_stream');
 
     source.addEventListener('results', function(e){
       console.log('Received a message:', e.data);
       var b = $.parseJSON(e.data).pdata;
-      svg_change(b);
+      var addr = $.parseJSON(e.data).ccaddr;
+      var ccua = ipaddr.parse(addr);
+      var ccu = ccua.octets[3];
+      var zcu = $.parseJSON(e.data).zcaddr;
+	//alert($('park\\:b').attr('value'));
+	//alert($('park\\:f').attr('value'));
+	//alert($('park\\:ccu').attr('value'));
+	//alert($('park\\:zcu1').attr('value'));
+	//alert($('park\\:zcu2').attr('value'));
+      svg_change(b,ccu,zcu);
     });
+       
 
-	function svg_change(b) {
+	function svg_change(b,ccu,zcu) {
                var a = b.split("");
 	       var rect;
 	       var i = 0, j = i+1;
-               var len = b.length;
+               var len = b.length, filled = 0, vacant = 0;
 	       //alert (a);
                for (; i <= len; i++, j++) {
-                rect = $('#slot'+ j);
+                 rect = $('#slot'+ j + zcu + ccu);
 		//alert (a[i]);
 		if (a[i] == 1) {
-                rect.css('fill','red');
+                  rect.css('fill','red');
+                  filled += 1; 
 		}
 		else {
-                rect.css('fill','green');
+                  rect.css('fill','green');
 		}
 		}
+                vacant = len - filled;
+                $('#filled').text(filled);
+                $('#vacant').text(vacant);
+                $('#total').text(b.length);
          }
+
 
     source.addEventListener('finished', function(e){
       console.log('Close:', e.data);
