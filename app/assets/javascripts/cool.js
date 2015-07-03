@@ -24,25 +24,30 @@ $(function() {
 
 	function svg_change(b,ccu,zcu) {
                var a = b.split("");
-	       var rect;
+	       var rect, color;
 	       var i = 0, j = i+1;
                var len = b.length, filled = 0, vacant = 0;
 	       //alert (a);
                for (; i <= len; i++, j++) {
                  rect = $('#slot'+ j + zcu + ccu);
+                //color = rect.css('fill'); 
 		//alert (a[i]);
-		if (a[i] == 1) {
+                //console.log('color:', color);  // logicto
+	        //	alert(rect.fill);        // to implement
+		//if (color == "blue") {         // reserved //verify what is the best soln..
+                //  alert ("Slot is reserved");
+		//} else 
+                if (a[i] == 1){ 
                   rect.css('fill','red');
                   filled += 1; 
-		}
-		else {
+		} else {
                   rect.css('fill','green');
 		}
-		}
-                vacant = len - filled;
-                $('#filled').text(filled);
-                $('#vacant').text(vacant);
-                $('#total').text(b.length);
+               }
+          //      vacant = len - filled;
+           //     $('#filled').text(filled);
+            //    $('#vacant').text(vacant);
+             //   $('#total').text(b.length);
          }
 
 

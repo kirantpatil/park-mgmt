@@ -14,7 +14,11 @@ class ParkController < ApplicationController
 
     if recently_changed? last_updated
       begin
+        @events = Event.floor(last_updated.ccaddr)
+        floor_status = f_status(@events)  
         sse.write(last_updated, event: 'results')
+        sse.write(floor_status, event: 'results')
+        # sse.write(@events[0].pdata, event: 'results')
       rescue IOError
         # When the client disconnects, we'll get an IOError on write
       ensure
@@ -26,16 +30,34 @@ class ParkController < ApplicationController
 
   private
 
-  def recently_changed? last_user
-    last_user.created_at > 5.seconds.ago or
-      last_user.updated_at > 5.seconds.ago
+  def f_status(f_events)
+    vacant = 0
+    filled = 0
+    total = 0
+
+    f_events.each do |i|
+      #return i.pdata.size
+      sdata = i.pdata
+      sdatai = sdata.size.to_i
+      total += sdatai
+      a = sdata.split('')
+      #return a[1]
+      for j in 1..total
+        if ( a[j] == "0" )
+          vacant += 1 
+        else
+          filled += 1  
+        end
+        j += 1
+      end
+    end
+    
+    return filled
   end
 
-  def new_res(status, ss)
-  status.pdata.size.times do |n|
-  ss += 1 if status.pdata[n] == "1"
-  end
-  return ss
+  def recently_changed? last_event
+    last_event.created_at > 5.seconds.ago or
+      last_event.updated_at > 5.seconds.ago
   end
 
-end
+ end
