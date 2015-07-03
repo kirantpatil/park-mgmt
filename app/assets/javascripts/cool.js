@@ -8,6 +8,7 @@ $(function() {
 
     source.addEventListener('results', function(e){
       console.log('Received a message:', e.data);
+      if ( $.parseJSON(e.data).pdata ) {
       var b = $.parseJSON(e.data).pdata;
       var addr = $.parseJSON(e.data).ccaddr;
       var ccua = ipaddr.parse(addr);
@@ -19,6 +20,14 @@ $(function() {
 	//alert($('park\\:zcu1').attr('value'));
 	//alert($('park\\:zcu2').attr('value'));
       svg_change(b,ccu,zcu);
+      } else {
+      var vacant  = $.parseJSON(e.data).vacant;
+      var filled  = $.parseJSON(e.data).filled;
+      var total   = $.parseJSON(e.data).total;
+                $('#vacant').text(vacant);
+                $('#filled').text(filled);
+                $('#total').text(total);
+      }
     });
        
 
@@ -28,7 +37,7 @@ $(function() {
 	       var i = 0, j = i+1;
                var len = b.length, filled = 0, vacant = 0;
 	       //alert (a);
-               for (; i <= len; i++, j++) {
+               for (; i < len; i++, j++) {
                  rect = $('#slot'+ j + zcu + ccu);
                 //color = rect.css('fill'); 
 		//alert (a[i]);
@@ -44,10 +53,6 @@ $(function() {
                   rect.css('fill','green');
 		}
                }
-          //      vacant = len - filled;
-           //     $('#filled').text(filled);
-            //    $('#vacant').text(vacant);
-             //   $('#total').text(b.length);
          }
 
 

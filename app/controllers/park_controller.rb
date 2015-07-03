@@ -36,23 +36,24 @@ class ParkController < ApplicationController
     total = 0
 
     f_events.each do |i|
-      #return i.pdata.size
       sdata = i.pdata
-      sdatai = sdata.size.to_i
+      sdatai = sdata.size
       total += sdatai
       a = sdata.split('')
-      #return a[1]
-      for j in 1..total
+      for j in 0..total-1
         if ( a[j] == "0" )
           vacant += 1 
-        else
+        elsif ( a[j] == "1" )
           filled += 1  
+        else
         end
         j += 1
       end
     end
     
-    return filled
+    status = {:vacant => vacant, :filled => filled, :total => total}
+    
+    return status
   end
 
   def recently_changed? last_event
