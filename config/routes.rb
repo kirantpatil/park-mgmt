@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :ccunits
+  resources :floors
+  resources :buildings
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -7,7 +10,7 @@ Rails.application.routes.draw do
   get 'user_stream' => 'park#index_stream'
   get 'user_watch' => 'park#index'
 
-  root 'park#index'
+#  root 'park#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
