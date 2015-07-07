@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lotid: 1
+  status: MyString
+  stime: 2015-07-06 15:40:57
+  etime: 2015-07-06 15:40:57
+
+two:
+  lotid: 1
+  status: MyString
+  stime: 2015-07-06 15:40:57
+  etime: 2015-07-06 15:40:57

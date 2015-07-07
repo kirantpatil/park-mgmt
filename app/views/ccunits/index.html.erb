@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ccunits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ip</th>
+      <th>Port</th>
+      <th>Floor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ccunits.each do |ccunit| %>
+      <tr>
+        <td><%= ccunit.ip %></td>
+        <td><%= ccunit.port %></td>
+        <td><%= ccunit.floor_id %></td>
+        <td><%= link_to 'Show', ccunit %></td>
+        <td><%= link_to 'Edit', edit_ccunit_path(ccunit) %></td>
+        <td><%= link_to 'Destroy', ccunit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ccunit', new_ccunit_path %>

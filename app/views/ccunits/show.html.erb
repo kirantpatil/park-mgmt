@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ip:</strong>
+  <%= @ccunit.ip %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @ccunit.port %>
+</p>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @ccunit.floor_id %>
+</p>
+
+<%= link_to 'Edit', edit_ccunit_path(@ccunit) %> |
+<%= link_to 'Back', ccunits_path %>
