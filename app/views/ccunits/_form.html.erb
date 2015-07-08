@@ -21,8 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :floor_id %><br>
-    <%= f.collection_select(:floor_id, Building.all, :id, :name) %>
-    <%= f.collection_select(:floor_id, Floor.where(f.object.floor_id), :id, :name) %>
+    <%= f.grouped_collection_select(:floor_id, Building.all, :floors, :name, :id, :name, prompt: true) %>
   </div>
   <div class="actions">
     <%= f.submit %>
