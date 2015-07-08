@@ -46,14 +46,41 @@ module ParkServ
       zcaddr = zcaddrasc.unpack("H*").first.to_i(16)
       slsaddrup = data.unpack("B*")
       slsaddr = slsaddrup[0]
-      
-      if Event.where(zcaddr: zcaddr, ccport: ccport).present?
-        e = Event.find_by(zcaddr: zcaddr, ccport: ccport)
-        e.pdata = slsaddr
-        e.save
+      a = slsaddr.split('')
+
+      c = Ccunit.find_by_ip(ccaddr)
+=begin
+=end
+      if c.zcunits.find_by_zcid(zcaddr).present?
+        j = 1
+        for i in 0..a.size-1 
+          l = c.zcunits.find_by_zcid(zcaddr).lots.find_by_lotid(j)
+          if ( a[i] == "0" )
+            l.status = "vacant"
+          else
+            l.status = "Occupied"
+          end
+          l.save
+          j += 1
+        end
       else
-        e = Event.new(pdata: slsaddr, ccaddr: ccaddr, ccport: ccport, zcaddr: zcaddr)
-        e.save
+=begin
+=end
+        z = Zcunit.new(zcid: zcaddr, ccunit_id: c.id)
+        z.save
+        j = 1
+        for i in 0..a.size-1 
+          l = Lot.new
+          l.lotid = j
+          if ( a[i] == "0" )
+            l.status = "vacant"
+          else
+            l.status = "Occupied"
+          end
+          l.zcunit_id = z.id
+          l.save
+          j += 1
+        end
       end
     end
   end
