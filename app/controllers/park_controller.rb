@@ -4,21 +4,29 @@ class ParkController < ApplicationController
   include ActionController::Live
  
   def index
+    @buildings = Building.all
   end
 	
   def index_stream
     response.headers['Content-Type'] = 'text/event-stream'
 
     sse = Reloader::SSE.new(response.stream)
-    last_updated = Event.last_updated.first
+    last_updated = Lot.last_updated.first
 
     if recently_changed? last_updated
       begin
-        @events = Event.floor(last_updated.ccaddr)
-        floor_status = f_status(@events)  
-        sse.write(last_updated, event: 'results')
+        ccunit = last_updated.zcunit.ccunit
+        floor = ccunit.floor
+        a = ccunit.zcunits.pluck(:zcid)
+        floor_status = f_status(floor)  
+
+        for i in 0..a.size-1
+        lot_status = l_status(ccunit.zcunits.find_by_zcid(a[i]))
+        sse.write(lot_status, event: 'results')
+        end
         sse.write(floor_status, event: 'results')
-        # sse.write(@events[0].pdata, event: 'results')
+
+#        sse.write(ccunit, event: 'results')
       rescue IOError
         # When the client disconnects, we'll get an IOError on write
       ensure
@@ -30,29 +38,31 @@ class ParkController < ApplicationController
 
   private
 
-  def f_status(f_events)
+  def f_status(floor)
     vacant = 0
-    filled = 0
+    occupied = 0
     total = 0
-
-    f_events.each do |i|
-      sdata = i.pdata
-      sdatai = sdata.size
-      total += sdatai
-      a = sdata.split('')
-      for j in 0..total-1
-        if ( a[j] == "0" )
-          vacant += 1 
-        elsif ( a[j] == "1" )
-          filled += 1  
-        else
-        end
-        j += 1
+    floor.ccunits.each do |ccu| 
+      ccu.zcunits.each do |zcu|
+        vacant += zcu.lots.where(status: "vacant").count
+        occupied += zcu.lots.where(status: "Occupied").count
       end
     end
-    
-    status = {:vacant => vacant, :filled => filled, :total => total}
-    
+    total = vacant + occupied
+    status = {:vacant => vacant, :occupied => occupied, :total => total}
+    return status
+  end
+
+  def l_status(zcunit)
+    a = ""
+    zcunit.lots.each do |lot|
+      if (lot.status == "vacant")
+        a.concat("0")
+      else
+        a.concat("1")
+      end
+    end
+    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name}
     return status
   end
 

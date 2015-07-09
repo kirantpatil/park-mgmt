@@ -1,10 +1,28 @@
 
- <div class="page-header">
-  <h3>Parking Floors</h3>
- </div>
+<div class="page-header">
+  <h2>Parking Floors</h2>
+</div>
 
 <div class="row">
 
+  <% @buildings.each do |building| %>
+    <div class="col-xs-10">
+      <% building.floors.each do |floor| %>
+      <h3><%= building.name %> :  <%= floor.name %></h3>
+      <object id="<%= floor.name %>" type="image/svg+xml" data=<%=asset_path floor.image_url%>>Your browser does not support SVG</object>
+      <% end %>
+    </div>
+
+  <div class="col-xs-2">
+   <ul class="list-unstyled">
+    <li> <span class="label label-info">Slots Filled:</span> <div id="filled" style="display: inline-block;"> </div> </li>
+    <li> <span class="label label-info">Slots Vacant:</span> <div id="vacant" style="display: inline-block;"> </div> </li>
+    <li> <span class="label label-info">Total Slots:</span> <div id="total" style="display: inline-block;"> </div> </li>
+   </ul>
+  </div>
+  <% end %>
+
+<!--
   <div class="col-xs-10">
        <div class="svg" id="svgload" alt="Slide 1"></div>
   </div>
@@ -16,10 +34,11 @@
     <li> <span class="label label-info">Total Slots:</span> <div id="total" style="display: inline-block;"> </div> </li>
    </ul>
   </div>
-
+-->
 </div>
 
 
 <div id="btnTest">
-</div> <!-- we are keeping this div tag to make the user_stream starts properly,need to investigate what does it do such that user_stream works properly -->
+</div> 
 
+<!-- we are keeping this div tag to make the user_stream starts properly,need to investigate what does it do such that user_stream works properly -->

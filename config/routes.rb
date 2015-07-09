@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'user_stream' => 'park#index_stream'
   get 'user_watch' => 'park#index'
 
-#  root 'park#index'
+  root 'park#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

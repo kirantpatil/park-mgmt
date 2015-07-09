@@ -38,7 +38,6 @@ module ParkServ
     end
       
     def handle(socket)
-      puts "I am here"
       data, cciport = socket.recvfrom(20)
       ccport = cciport[1]
       ccaddr = cciport[2]
@@ -64,8 +63,6 @@ module ParkServ
           j += 1
         end
       else
-=begin
-=end
         z = Zcunit.new(zcid: zcaddr, ccunit_id: c.id)
         z.save
         j = 1
