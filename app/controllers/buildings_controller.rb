@@ -1,4 +1,6 @@
 class BuildingsController < ApplicationController
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
   before_action :set_building, only: [:show, :edit, :update, :destroy]
 
   # GET /buildings
@@ -62,6 +64,7 @@ class BuildingsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_building
       @building = Building.find(params[:id])

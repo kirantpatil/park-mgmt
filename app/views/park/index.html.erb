@@ -6,27 +6,15 @@
 <div class="row">
 
   <% @buildings.each do |building| %>
-    <div class="col-xs-10">
       <% building.floors.each do |floor| %>
-      <h3><%= building.name %> :  <%= floor.name %></h3>
-      <object id="<%= floor.name %>" type="image/svg+xml" data=<%=asset_path floor.image_url%>>Your browser does not support SVG</object>
+        <div class="col-md-6 text-center">
+          <h3><%= building.name %> :  <%= floor.name %></h3>
+          <object width="400" id="<%= building.name %><%= floor.name %>" type="image/svg+xml" data=<%=asset_path floor.image_url%>>Your browser does not support SVG</object> <br/>
+          <%= link_to 'Show', floor, :class=>"btn btn-primary" %>
+        </div>
       <% end %>
-    </div>
 
-  <div class="col-xs-2">
-   <ul class="list-unstyled">
-    <li> <span class="label label-info">Slots Filled:</span> <div id="filled" style="display: inline-block;"> </div> </li>
-    <li> <span class="label label-info">Slots Vacant:</span> <div id="vacant" style="display: inline-block;"> </div> </li>
-    <li> <span class="label label-info">Total Slots:</span> <div id="total" style="display: inline-block;"> </div> </li>
-   </ul>
-  </div>
-  <% end %>
-
-<!--
-  <div class="col-xs-10">
-       <div class="svg" id="svgload" alt="Slide 1"></div>
-  </div>
-
+<!-- 
   <div class="col-xs-2">
    <ul class="list-unstyled">
     <li> <span class="label label-info">Slots Filled:</span> <div id="filled" style="display: inline-block;"> </div> </li>
@@ -35,6 +23,8 @@
    </ul>
   </div>
 -->
+  <% end %>
+
 </div>
 
 

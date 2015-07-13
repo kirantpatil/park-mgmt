@@ -1,5 +1,16 @@
 <header id="page-header">
   <div id="masthead">
     <h1> Parking Management System<h1>
+    <nav>
+      <p>
+      <% if current_user %>
+        <%= link_to current_user.name, current_user %>
+        <%= link_to "Sign Out", session_path, method: :delete%>   
+      <% else %>
+        <%= link_to "Sign Up", signup_path %>   
+        <%= link_to "Sign In", new_session_path %>   
+      <% end %>
+      </p>
+    </nav>
   </div>
 </header>

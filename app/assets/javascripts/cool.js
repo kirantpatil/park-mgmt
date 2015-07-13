@@ -33,12 +33,13 @@ $(function() {
       var b = $.parseJSON(e.data).lstatus;
       var zcu = $.parseJSON(e.data).zcid;
       var floor = $.parseJSON(e.data).fname;
+      var building = $.parseJSON(e.data).bname;
 	//alert($('park\\:b').attr('value'));
 	//alert($('park\\:f').attr('value'));
 	//alert($('park\\:ccu').attr('value'));
 	//alert($('park\\:zcu1').attr('value'));
 	//alert($('park\\:zcu2').attr('value'));
-      svg_change(b,zcu,floor);
+      svg_change(b,zcu,floor,building);
       } else {
       var vacant  = $.parseJSON(e.data).vacant;
       var occupied = $.parseJSON(e.data).occupied;
@@ -50,8 +51,8 @@ $(function() {
     });
        
 
-	function svg_change(b,zcu,floor) {
-          var object = document.getElementById(floor);
+	function svg_change(b,zcu,fl,bu) {
+          var object = document.getElementById(bu+fl);
           var svgdoc;
             svgdoc = object.contentDocument;
 

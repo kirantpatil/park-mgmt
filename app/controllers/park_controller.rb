@@ -62,7 +62,7 @@ class ParkController < ApplicationController
         a.concat("1")
       end
     end
-    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name}
+    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name, :bname => zcunit.ccunit.floor.building.name}
     return status
   end
 

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resource :session
+  get "signup" => "users#new"
+  resources :users
   resources :ccunits
   resources :floors
   resources :buildings
@@ -9,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'user_stream' => 'park#index_stream'
   get 'user_watch' => 'park#index'
+
 
   root 'park#index'
 
