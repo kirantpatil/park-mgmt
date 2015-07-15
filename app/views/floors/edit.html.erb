@@ -1,6 +1,13 @@
-<h1>Editing Floor</h1>
+<div class="page-header">
+  <%= link_to 'Cancel', floors_path, :class=>"btn btn-default pull-right" %>
+  <h3>Editing floor</h3>
+</div>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <%= render 'form' %>
+  </div>
+</div>
 
 <%= link_to 'Show', @floor %> |
 <%= link_to 'Back', floors_path %>

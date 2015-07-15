@@ -1,5 +1,10 @@
-<h1>New Floor</h1>
+<div class="page-header">
+  <%= link_to 'Cancel', floors_path, :class=>"btn btn-default pull-right" %>
+  <h3>Add new floor</h3>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', floors_path %>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <%= render 'form' %>
+  </div>
+</div>

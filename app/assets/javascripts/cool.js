@@ -25,7 +25,7 @@ $(function() {
 */ 
   
          
-    var source = new EventSource('/user_stream');
+    var source = new EventSource('/floor_stream');
 
     source.addEventListener('results', function(e){
       console.log('Received a message:', e.data);
@@ -34,20 +34,24 @@ $(function() {
       var zcu = $.parseJSON(e.data).zcid;
       var floor = $.parseJSON(e.data).fname;
       var building = $.parseJSON(e.data).bname;
-	//alert($('park\\:b').attr('value'));
-	//alert($('park\\:f').attr('value'));
-	//alert($('park\\:ccu').attr('value'));
-	//alert($('park\\:zcu1').attr('value'));
-	//alert($('park\\:zcu2').attr('value'));
       svg_change(b,zcu,floor,building);
-      } else {
+
+      } else if ($.parseJSON(e.data).total){
       var vacant  = $.parseJSON(e.data).vacant;
       var occupied = $.parseJSON(e.data).occupied;
       var total   = $.parseJSON(e.data).total;
                 $('#vacant').text(vacant);
                 $('#filled').text(occupied);
                 $('#total').text(total);
+      } else if ($.parseJSON(e.data).total_b){
+      var vacant  = $.parseJSON(e.data).vacant_b;
+      var occupied = $.parseJSON(e.data).occupied_b;
+      var total   = $.parseJSON(e.data).total_b;
+                $('#vacant_b').text(vacant);
+                $('#filled_b').text(occupied);
+                $('#total_b').text(total);
       }
+
     });
        
 

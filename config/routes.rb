@@ -10,11 +10,12 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
-  get 'user_stream' => 'park#index_stream'
-  get 'user_watch' => 'park#index'
+  #get 'user_stream' => 'park#index_stream'
+  get 'floor_stream' => 'floors#floor_stream'
 
 
-  root 'park#index'
+  #root 'park' => 'park#index'
+  root 'buildings#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
+<% if current_user_admin? %>
 <%= link_to 'Show', @building %> |
 <%= link_to 'Back', buildings_path %>
+<% end %>

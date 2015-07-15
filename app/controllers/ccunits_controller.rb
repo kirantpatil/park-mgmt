@@ -1,4 +1,6 @@
 class CcunitsController < ApplicationController
+  before_action :require_signin, except: [:index, :show]
+  before_action :require_admin, except: [:index, :show]
   before_action :set_ccunit, only: [:show, :edit, :update, :destroy]
 
   # GET /ccunits

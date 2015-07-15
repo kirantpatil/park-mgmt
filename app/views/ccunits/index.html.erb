@@ -18,9 +18,11 @@
         <td><%= ccunit.ip %></td>
         <td><%= ccunit.port %></td>
         <td><%= ccunit.floor.name %></td>
+        <% if current_user_admin? %>
         <td><%= link_to 'Show', ccunit %></td>
         <td><%= link_to 'Edit', edit_ccunit_path(ccunit) %></td>
         <td><%= link_to 'Destroy', ccunit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +30,6 @@
 
 <br>
 
+<% if current_user_admin? %>
 <%= link_to 'New Ccunit', new_ccunit_path %>
+<% end %>

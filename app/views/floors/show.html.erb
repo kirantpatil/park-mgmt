@@ -1,19 +1,29 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-info">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @floor.name %>
-</p>
+<div class="page-header">
+<% if current_user_admin? %>
+  <ul class="list-inline pull-right">
+    <li><%= link_to 'Edit', edit_floor_path(@floor), :class=>"btn btn-warning" %></li>  
+    <li><%= link_to 'Back', floors_path, :class=>"btn btn-default" %></li>
+  </ul>
+<% end %>
+  <h3><%= @floor.building.name %> : <%= @floor.name %></h3>
+</div>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @floor.image_url %>
-</p>
+<div class="col-xs-10">
+     <object id="<%= @floor.building.name %><%= @floor.name %>" type="image/svg+xml" data=<%=asset_path @floor.image_url%>>Your browser does not support SVG</object>
+</div>
 
-<p>
-  <strong>Building Name:</strong>
-  <%= @floor.building.name %>
-</p>
+<div class="col-xs-2">
+  <ul class="list-unstyled">
+    <li> <h4> Lots status </h4> </li>
+    <li> <span class="label label-info">Slots Filled:</span> <div id="filled" style="display: inline-block;"> </div> </li>
+    <li> <span class="label label-info">Slots Vacant:</span> <div id="vacant" style="display: inline-block;"> </div> </li>
+    <li> <span class="label label-info">Total Slots:</span> <div id="total" style="display: inline-block;"> </div> </li>
+  </ul>
+</div>
 
-<%= link_to 'Edit', edit_floor_path(@floor) %> |
-<%= link_to 'Back', floors_path %>

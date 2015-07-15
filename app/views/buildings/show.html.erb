@@ -10,5 +10,7 @@
   <%= @building.description %>
 </p>
 
+<% if current_user_admin? %>
 <%= link_to 'Edit', edit_building_path(@building) %> |
 <%= link_to 'Back', buildings_path %>
+<% end %>
