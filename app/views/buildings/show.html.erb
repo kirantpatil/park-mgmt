@@ -1,16 +1,28 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-info">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @building.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @building.description %>
-</p>
+<div class="col-xs-6 class">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @building.name %></td>
+      <td><%= @building.description %></td>
+    </tr>
+  </tbody>
+</table>
 
 <% if current_user_admin? %>
-<%= link_to 'Edit', edit_building_path(@building) %> |
-<%= link_to 'Back', buildings_path %>
+<%= link_to 'Edit', edit_building_path(@building), :class=>"btn btn-warning" %> |
+<%= link_to 'Back', buildings_path, :class=>"btn btn-default" %>
 <% end %>
+</div>

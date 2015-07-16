@@ -1,21 +1,30 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-info">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
 
-<p>
-  <strong>Ip:</strong>
-  <%= @ccunit.ip %>
-</p>
-
-<p>
-  <strong>Port:</strong>
-  <%= @ccunit.port %>
-</p>
-
-<p>
-  <strong>Floor:</strong>
-  <%= @ccunit.floor.name %>
-</p>
+<div class="col-xs-6 class">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Ip</th>
+      <th>Port</th>
+      <th>Floor</th>
+      <th colspan="3"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @ccunit.ip %></td>
+      <td><%= @ccunit.port %></td>
+      <td><%= @ccunit.floor.name %></td>
+    </tr>
+  </tbody>
+</table>
 
 <% if current_user_admin? %>
-<%= link_to 'Edit', edit_ccunit_path(@ccunit) %> |
-<%= link_to 'Back', ccunits_path %>
+<%= link_to 'Edit', edit_ccunit_path(@ccunit), :class=>"btn btn-warning" %> |
+<%= link_to 'Back', ccunits_path, :class=>"btn btn-default" %>
 <% end %>
+</div>

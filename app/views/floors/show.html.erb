@@ -5,15 +5,15 @@
 <% end %>
 
 <div class="page-header">
-<% if current_user_admin? %>
-  <ul class="list-inline pull-right">
-    <li><%= link_to 'Edit', edit_floor_path(@floor), :class=>"btn btn-warning" %></li>  
-    <li><%= link_to 'Back', floors_path, :class=>"btn btn-default" %></li>
-  </ul>
-<% else %>
+  <% if current_user_admin? %>
+    <ul class="list-inline pull-right">
+      <li><%= link_to 'Edit', edit_floor_path(@floor), :class=>"btn btn-warning" %></li>  
+      <li><%= link_to 'Back', floors_path, :class=>"btn btn-default" %></li>
+    </ul>
+  <% else %>
     <%= link_to 'Back', floors_path, :class=>"btn btn-default pull-right" %>
-<% end %>
-  <h3><%= @floor.building.name %> : <%= @floor.name %></h3>
+  <% end %>
+    <h3><%= @floor.building.name %> : <%= @floor.name %></h3>
 </div>
 
 <div class="col-xs-10">
@@ -23,9 +23,9 @@
 <div class="col-xs-2">
   <ul class="list-unstyled">
     <li> <h4> Lots status </h4> </li>
-    <li> <h5> <span class="label label-info">Occupied :</span> <div id="filled" style="display: inline-block;"> </div> </h5> </li>
-    <li> <h5> <span class="label label-info">Vacant :</span> <div id="vacant" style="display: inline-block;"> </div> </h5> </li>
-    <li> <h5> <span class="label label-info">Total :</span> <div id="total" style="display: inline-block;"> </div> </h5> </li>
+    <li> <h5> <span class="label label-danger">Occupied :</span> <span class="badge"><div id="filled" style="display: inline-block;"> </div> </span> </h5> </li>
+    <li> <h5> <span class="label label-success">Vacant :</span> <span class="badge"><div id="vacant" style="display: inline-block;"> </div></span> </h5> </li>
+    <li> <h5> <span class="label label-info">Total :</span> <span class="badge"><div id="total" style="display: inline-block;"> </div> <span> </h5> </li>
   </ul>
 </div>
 

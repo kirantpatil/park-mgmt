@@ -6,11 +6,11 @@
   <footer>
     <nav>
       <% if current_user?(@user) %>
-      <%= link_to "Edit Account", edit_user_path(@user), class: "button" %>
-      <%= link_to "Delete Account", @user, 
+      <%= link_to "Edit Account", edit_user_path(@user), :class=>"btn btn-warning" %>
+      <%= link_to "Delete Account", @user, :class=>"btn btn-danger", 
                     method: :delete,
-                    data: {confirm: 'Are you sure?' },
-                    class: 'button' %>
+                    data: {confirm: 'Are you sure?' }
+                    %>
       <% end %>
     </nav>
 </article>

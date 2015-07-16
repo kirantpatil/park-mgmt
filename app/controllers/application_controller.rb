@@ -36,5 +36,24 @@ private
 
   helper_method :current_user_admin?
 
+   def b_status(building)
+    vacant = 0
+    occupied = 0
+    total = 0
+    building.floors.each do |flr|
+      flr.ccunits.each do |ccu|
+        ccu.zcunits.each do |zcu|
+          vacant += zcu.lots.where(status: "vacant").count
+          occupied += zcu.lots.where(status: "Occupied").count
+        end
+      end
+    end
+    total = vacant + occupied
+    status = {:vacant_b => vacant, :occupied_b => occupied, :total_b => total}
+    return status
+    end
+
+  helper_method :b_status
+
 
 end
