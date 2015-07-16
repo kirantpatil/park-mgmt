@@ -3,7 +3,6 @@ require 'reloader/sse'
 class FloorsController < ApplicationController
   include ActionController::Live
   before_action :require_signin, except: [:index, :show]
-  before_action :require_admin, except: [:index, :show]
   before_action :set_floor, only: [:show, :edit, :update, :destroy]
 
   def floor_stream

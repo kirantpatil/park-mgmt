@@ -11,15 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name, :for=>"nameField" %><br>
+    <%= f.text_field :name, :class=>"form-control", :id=>"nameField" %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label :description, :for=>"descField" %><br>
+    <%= f.text_area :description, :class=>"form-control", :id=>"descField" %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <% if @building.new_record? %>
+        <ul class="list-inline">
+          <li><%= f.submit 'Create', :class=>"btn btn-success" %></li>
+          <li><%= button_tag 'Reset', type: :reset, :class=>"btn btn-default" %></li>
+        </ul>
+      <% else %>
+        <%= f.submit "Update", :class=>"btn btn-success" %>
+      <% end %>
 <% end %>

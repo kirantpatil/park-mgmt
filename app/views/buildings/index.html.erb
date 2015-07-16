@@ -2,12 +2,13 @@
 
 <h1>Listing Buildings</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Floor</th>
+      <th>Lot status</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -20,27 +21,29 @@
         <td><%= building.description %></td>
 
         <% building.floors.each do |floor| %>
+        <td>
           <ul class="list-inline">
-            <td><li> <h4> <%= floor.name %></h4> </li></td>
-            <td><li> <%= link_to 'Show', floor, :class=>"btn btn-primary" %> </li></td>
+            <li> <h5> <%= floor.name %></h5> </li>
+            <li> <%= link_to 'Show', floor, :class=>"btn btn-success" %> </li>
           </ul>
+        </td>
         <% end %>
       </div>
         
         <div class="col-xs-4">
+        <td>
           <ul class="list-unstyled">
-            <li> <h4> <%= building.name %> lots status </h4> </li>
-            <li> <span class="label label-info">Slots Filled:</span> <div id="filled_b" style="display: inline-block;"> </div> </li>
-            <li> <span class="label label-info">Slots Vacant:</span> <div id="vacant_b" style="display: inline-block;"> </div> </li>
-            <li> <span class="label label-info">Total Slots:</span> <div id="total_b" style="display: inline-block;"> </div> </li>
+            <li> <h5> <span class="label label-info">Occupied :</span> <div id="filled_b" style="display: inline-block;"> </div> </h5> </li>
+            <li> <h5> <span class="label label-info">Vacant :</span> <div id="vacant_b" style="display: inline-block;"> </div> </h5> </li>
+            <li> <h5> <span class="label label-info">Total :</span> <div id="total_b" style="display: inline-block;"> </div> </h5> </li>
           </ul>
+        </td>
         </div>
 
-
         <% if current_user_admin? %>
-        <td><%= link_to 'Show', building %></td>
-        <td><%= link_to 'Edit', edit_building_path(building) %></td>
-        <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', building, :class=>"btn btn-success" %></td>
+        <td><%= link_to 'Edit', edit_building_path(building), :class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', building, :class=>"btn btn-danger" ,method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
     <% end %>
@@ -52,5 +55,5 @@
 <div id="btnTest"> </div>
 
 <% if current_user_admin? %>
-<%= link_to 'New Building', new_building_path %>
+<%= link_to 'New Building', new_building_path, :class=>"btn btn-info" %>
 <% end %>

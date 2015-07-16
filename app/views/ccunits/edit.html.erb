@@ -1,6 +1,9 @@
-<h1>Editing Ccunit</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @ccunit %> |
-<%= link_to 'Back', ccunits_path %>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <div class="page-header">
+      <%= link_to 'Cancel', ccunits_path, :class=>"btn btn-default pull-right" %>
+      <h3>Editing ccunit</h3>
+    </div>
+    <%= render 'form' %>
+  </div>
+</div>

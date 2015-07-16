@@ -11,19 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :ip %><br>
-    <%= f.text_field :ip %>
+  <div class="form-group">
+    <%= f.label :ip, :for=>"ipField" %><br>
+    <%= f.text_field :ip, :class=>"form-control", :id=>"ipField" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :port, :for=>"portField" %><br>
+    <%= f.number_field :port, :class=>"form-control", :id=>"portField" %>
   </div>
   <div class="field">
-    <%= f.label :port %><br>
-    <%= f.number_field :port %>
+    <%= f.label :floor_id, :for=>"floorField" %><br>
+    <%= f.grouped_collection_select(:floor_id, Building.all, :floors, :name, :id, :name, {class: "form-control"}, {id: "floorField"}) %>
   </div>
-  <div class="field">
-    <%= f.label :floor_id %><br>
-    <%= f.grouped_collection_select(:floor_id, Building.all, :floors, :name, :id, :name, prompt: true) %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+      <% if @ccunit.new_record? %>
+        <ul class="list-inline">
+          <li><%= f.submit 'Create', :class=>"btn btn-success" %></li>
+          <li><%= button_tag 'Reset', type: :reset, :class=>"btn btn-default" %></li>
+        </ul>
+      <% else %>
+        <%= f.submit "Update", :class=>"btn btn-success" %>
+      <% end %>
 <% end %>

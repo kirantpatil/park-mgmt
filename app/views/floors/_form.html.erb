@@ -23,8 +23,12 @@
     <%= f.label :building_id, :for=>"buildField" %><br>
     <%= f.collection_select(:building_id, Building.all, :id, :name, {class: "form-control"}, {id: "buildField"}) %>
   </div>
-  <ul class="list-inline">
-    <li><%= f.submit 'Create', :class=>"btn btn-success" %></li>
-    <li><%= button_tag 'Reset', type: :reset, :class=>"btn btn-default" %></li>
-  </ul>
+      <% if @floor.new_record? %>
+        <ul class="list-inline">
+          <li><%= f.submit 'Create', :class=>"btn btn-success" %></li>
+          <li><%= button_tag 'Reset', type: :reset, :class=>"btn btn-default" %></li>
+        </ul>
+      <% else %>
+        <%= f.submit "Update", :class=>"btn btn-success" %>
+      <% end %>
 <% end %>

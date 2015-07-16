@@ -2,7 +2,7 @@
 
 <h1>Listing Ccunits</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Ip</th>
@@ -14,16 +14,18 @@
 
   <tbody>
     <% @ccunits.each do |ccunit| %>
+      <div class="col-xs-8 class">
       <tr>
         <td><%= ccunit.ip %></td>
         <td><%= ccunit.port %></td>
         <td><%= ccunit.floor.name %></td>
         <% if current_user_admin? %>
-        <td><%= link_to 'Show', ccunit %></td>
-        <td><%= link_to 'Edit', edit_ccunit_path(ccunit) %></td>
-        <td><%= link_to 'Destroy', ccunit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', ccunit, :class=>"btn btn-success" %></td>
+        <td><%= link_to 'Edit', edit_ccunit_path(ccunit), :class=>"btn btn-warning" %></td>
+        <td><%= link_to 'Destroy', ccunit, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
+      </div>
     <% end %>
   </tbody>
 </table>
@@ -31,5 +33,5 @@
 <br>
 
 <% if current_user_admin? %>
-<%= link_to 'New Ccunit', new_ccunit_path %>
+<%= link_to 'New Ccunit', new_ccunit_path, :class=>"btn btn-info" %>
 <% end %>
