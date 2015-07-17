@@ -1,43 +1,6 @@
-require 'reloader/sse'
-
 class FloorsController < ApplicationController
-  include ActionController::Live
   before_action :require_signin, except: [:index, :show]
   before_action :set_floor, only: [:show, :edit, :update, :destroy]
-
-  def floor_stream
-    response.headers['Content-Type'] = 'text/event-stream'
-
-    sse = Reloader::SSE.new(response.stream)
-    last_updated = Lot.last_updated.first
-
-    if recently_changed? last_updated
-      begin
-        ccunit = last_updated.zcunit.ccunit
-        floor = ccunit.floor
-        building = ccunit.floor.building
-        a = ccunit.zcunits.pluck(:zcid)
-        floor_status = f_status(floor)
-        building_status = b_status(building)
-
-        for i in 0..a.size-1
-          lot_status = l_status(ccunit.zcunits.find_by_zcid(a[i]))
-          sse.write(lot_status, event: 'results')
-        end
-
-        sse.write(floor_status, event: 'results')
-        sse.write(building_status, event: 'results')
-      rescue ClientDisconnected
-        # When the client disconnects, we'll get an IOError on write
-        logger.info "Stream closed"
-      ensure
-        logger.info "Stopping stream thread"
-        sse.close
-      end
-    end
-    render nothing: true
-  end
-
 
   # GET /floors
   # GET /floors.json
@@ -112,56 +75,5 @@ class FloorsController < ApplicationController
     def floor_params
       params.require(:floor).permit(:name, :image_url, :building_id)
     end
-
-    def b_status(building)
-    vacant = 0
-    occupied = 0
-    total = 0
-    building.floors.each do |flr|
-      flr.ccunits.each do |ccu|
-        ccu.zcunits.each do |zcu|
-          vacant += zcu.lots.where(status: "vacant").count
-          occupied += zcu.lots.where(status: "Occupied").count
-        end
-      end
-    end
-    total = vacant + occupied
-    status = {:vacant_b => vacant, :occupied_b => occupied, :total_b => total}
-    return status
-    end
-
-
-    def f_status(floor)
-    vacant = 0
-    occupied = 0
-    total = 0
-    floor.ccunits.each do |ccu|
-      ccu.zcunits.each do |zcu|
-        vacant += zcu.lots.where(status: "vacant").count
-        occupied += zcu.lots.where(status: "Occupied").count
-      end
-    end
-    total = vacant + occupied
-    status = {:vacant => vacant, :occupied => occupied, :total => total}
-    return status
-  end
-
-  def l_status(zcunit)
-    a = ""
-    zcunit.lots.each do |lot|
-      if (lot.status == "vacant")
-        a.concat("0")
-      else
-        a.concat("1")
-      end
-    end
-    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name, :bname => zcunit.ccunit.floor.building.name}
-    return status
-  end
-
-  def recently_changed? last_event
-    last_event.created_at > 5.seconds.ago or
-      last_event.updated_at > 5.seconds.ago
-  end
 
 end

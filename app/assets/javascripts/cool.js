@@ -1,21 +1,6 @@
 $(function() {
 
    /* 
-    var object = document.getElementById("svg1");
-    object.onload=function() {
-      var svgdoc;
-      try {
-        svgdoc = object.contentDocument;
-        alert("Green :: SVG in object supported hurray!!!");
-      } catch(e) {
-         try {
-           svgdoc = object.getSVGDocument();
-        alert("Red :: SVG in object supported hurray!!!");
-         } catch (e) {
-      alert("SVG in object not supported in your environment");
-      }
-    }
-
      if (!svgdoc) return;
 
      var rect = svgdoc.getElementById("slot10254");
@@ -25,7 +10,7 @@ $(function() {
 */ 
   
          
-    var source = new EventSource('/floor_stream');
+    var source = new EventSource('/park_stream');
 
     source.addEventListener('results', function(e){
       console.log('Received a message:', e.data);
@@ -40,16 +25,19 @@ $(function() {
       var vacant  = $.parseJSON(e.data).vacant;
       var occupied = $.parseJSON(e.data).occupied;
       var total   = $.parseJSON(e.data).total;
-                $('#vacant').text(vacant);
-                $('#filled').text(occupied);
-                $('#total').text(total);
+      var floor = $.parseJSON(e.data).fid;
+      var building = $.parseJSON(e.data).bid;
+                $('#vacant'+floor+building).text(vacant);
+                $('#filled'+floor+building).text(occupied);
+                $('#total'+floor+building).text(total);
       } else if ($.parseJSON(e.data).total_b){
       var vacant  = $.parseJSON(e.data).vacant_b;
       var occupied = $.parseJSON(e.data).occupied_b;
       var total   = $.parseJSON(e.data).total_b;
-                $('#vacant_b').text(vacant);
-                $('#filled_b').text(occupied);
-                $('#total_b').text(total);
+      var building = $.parseJSON(e.data).bid;
+                $('#vacant'+building).text(vacant);
+                $('#filled'+building).text(occupied);
+                $('#total'+building).text(total);
       }
 
     });

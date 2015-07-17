@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'static_pages/home'
+
   resource :session
   get "signup" => "users#new"
   resources :users
@@ -11,11 +13,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
 
   #get 'user_stream' => 'park#index_stream'
-  get 'floor_stream' => 'floors#floor_stream'
+  get 'park_stream' => 'static_pages#park_stream'
 
 
   #root 'park' => 'park#index'
-  root 'buildings#index'
+  root 'static_pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

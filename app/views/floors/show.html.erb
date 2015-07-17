@@ -20,12 +20,17 @@
      <object id="<%= @floor.building.name %><%= @floor.name %>" type="image/svg+xml" data=<%=asset_path @floor.image_url%>>Your browser does not support SVG</object>
 </div>
 
+<% div_id_f = "filled#{@floor.id}#{@floor.building.id}" %>
+<% div_id_v = "vacant#{@floor.id}#{@floor.building.id}" %>
+<% div_id_t = "total#{@floor.id}#{@floor.building.id}" %>
+
+
 <div class="col-xs-2">
   <ul class="list-unstyled">
     <li> <h4> Lots status </h4> </li>
-    <li> <h5> <span class="label label-danger">Occupied :</span> <span class="badge"><div id="filled" style="display: inline-block;"> </div> </span> </h5> </li>
-    <li> <h5> <span class="label label-success">Vacant :</span> <span class="badge"><div id="vacant" style="display: inline-block;"> </div></span> </h5> </li>
-    <li> <h5> <span class="label label-info">Total :</span> <span class="badge"><div id="total" style="display: inline-block;"> </div> <span> </h5> </li>
+    <li> <h5> <span class="label label-danger">Occupied :</span> <span class="badge"><div id="<%= div_id_f %>" style="display: inline-block;"> </div> </span> </h5> </li>
+    <li> <h5> <span class="label label-success">Vacant :</span> <span class="badge"><div id="<%= div_id_v %>" style="display: inline-block;"> </div></span> </h5> </li>
+    <li> <h5> <span class="label label-info">Total :</span> <span class="badge"><div id="<%= div_id_t %>" style="display: inline-block;"> </div> <span> </h5> </li>
   </ul>
 </div>
 

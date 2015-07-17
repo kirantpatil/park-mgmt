@@ -36,7 +36,7 @@ private
 
   helper_method :current_user_admin?
 
-   def b_status(building)
+  def b_status(building)
     vacant = 0
     occupied = 0
     total = 0
@@ -49,11 +49,42 @@ private
       end
     end
     total = vacant + occupied
-    status = {:vacant_b => vacant, :occupied_b => occupied, :total_b => total}
+    status = {:vacant_b => vacant, :occupied_b => occupied, :total_b => total, :bid => building.id}
     return status
-    end
+  end
 
   helper_method :b_status
 
+  def f_status(floor)
+    vacant = 0
+    occupied = 0
+    total = 0
+    floor.ccunits.each do |ccu|
+      ccu.zcunits.each do |zcu|
+        vacant += zcu.lots.where(status: "vacant").count
+        occupied += zcu.lots.where(status: "Occupied").count
+      end
+    end
+    total = vacant + occupied
+    status = {:vacant => vacant, :occupied => occupied, :total => total, :fid => floor.id, :bid => floor.building.id}
+    return status
+  end
 
-end
+  helper_method :f_status
+
+  def l_status(zcunit)
+    a = ""
+    zcunit.lots.each do |lot|
+      if (lot.status == "vacant")
+        a.concat("0")
+      else
+        a.concat("1")
+      end
+    end
+    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name, :bname => zcunit.ccunit.floor.building.name}
+    return status
+  end
+
+  helper_method :l_status
+ 
+end 
