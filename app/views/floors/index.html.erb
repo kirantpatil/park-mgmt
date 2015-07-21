@@ -25,7 +25,6 @@
   <tbody>
     <% @buildings.each do |building| %>
       <% building.floors.each do |floor| %>
-        <div class="col-xs-8 class">
           <tr>
             <td><%= floor.name %></td>
             <% if current_user_admin? %>
@@ -38,7 +37,6 @@
               <td><%= link_to 'Destroy', floor, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
-        </div>
       <% end %>
     <% end %>
   </tbody>

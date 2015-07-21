@@ -20,18 +20,15 @@
   <tbody>
     <% @buildings.each do |building| %>
       <tr>
-      <div class="col-xs-8 class">
         <td><%= building.name %></td>
         <td><%= building.description %></td>
         <td><%= building.floors.count %></td>
-      </div>
 
-      <% div_id_f = "filled#{building.id}" %>
-      <% div_id_v = "vacant#{building.id}" %>
-      <% div_id_t = "total#{building.id}" %>
+        <% div_id_f = "filled#{building.id}" %>
+        <% div_id_v = "vacant#{building.id}" %>
+        <% div_id_t = "total#{building.id}" %>
 
         
-        <div class="col-xs-4">
         <td>
           <ul class="list-unstyled">
             <li> <h5> <span class="label label-danger">Occupied :</span> <span class="badge"><div id="<%= div_id_f %>" style="display: inline-block;"> </div> </span></h5> </li>
@@ -39,7 +36,6 @@
             <li> <h5> <span class="label label-info">Total :</span> <span class="badge"><div id="<%= div_id_t %>" style="display: inline-block;"> </div> </span> </h5> </li>
           </ul>
         </td>
-        </div>
 
         <% if current_user_admin? %>
         <td><%= link_to 'Show', building, :class=>"btn btn-success" %></td>

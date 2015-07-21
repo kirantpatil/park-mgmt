@@ -7,6 +7,7 @@ class CcunitsController < ApplicationController
   # GET /ccunits.json
   def index
     @ccunits = Ccunit.all
+    @buildings = Building.all
   end
 
   # GET /ccunits/1

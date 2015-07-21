@@ -14,20 +14,22 @@
   </thead>
 
   <tbody>
-    <% @ccunits.each do |ccunit| %>
-      <div class="col-xs-8 class">
-      <tr>
-        <td><%= ccunit.ip %></td>
-        <td><%= ccunit.port %></td>
-        <td><%= ccunit.floor.name %></td>
-        <td><%= ccunit.floor.building.name %></td>
-        <% if current_user_admin? %>
-        <td><%= link_to 'Show', ccunit, :class=>"btn btn-success" %></td>
-        <td><%= link_to 'Edit', edit_ccunit_path(ccunit), :class=>"btn btn-warning" %></td>
-        <td><%= link_to 'Destroy', ccunit, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% @buildings.each do |building| %>
+      <% building.floors.each do |floor| %>
+        <% floor.ccunits.each do |ccunit| %>
+          <tr>
+            <td><%= ccunit.ip %></td>
+            <td><%= ccunit.port %></td>
+            <td><%= ccunit.floor.name %></td>
+            <td><%= ccunit.floor.building.name %></td>
+            <% if current_user_admin? %>
+              <td><%= link_to 'Show', ccunit, :class=>"btn btn-success" %></td>
+              <td><%= link_to 'Edit', edit_ccunit_path(ccunit), :class=>"btn btn-warning" %></td>
+              <td><%= link_to 'Destroy', ccunit, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-      </div>
+      <% end %>
     <% end %>
   </tbody>
 </table>
