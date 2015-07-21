@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-info">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
 
 <h1>Listing Floors</h1>
 
@@ -6,31 +10,43 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Image url</th>
+      <% if current_user_admin? %>
+       <th>Image url</th>
+      <% end %>
       <th>Building name</th>
-      <th colspan="3"></th>
+      <% if current_user_admin? %>
+        <th colspan="3"></th>
+      <% else %>
+        <th colspan="2"></th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @floors.each do |floor| %>
-      <div class="col-xs-8 class">
-      <tr>
-        <td><%= floor.name %></td>
-        <td><%= floor.image_url %></td>
-        <td><%= floor.building.name %></td>
-        <td><%= link_to 'Show', floor, :class=>"btn btn-success" %></td>
-        <% if current_user_admin? %>
-        <td><%= link_to 'Edit', edit_floor_path(floor), :class=>"btn btn-warning" %></td>
-        <td><%= link_to 'Destroy', floor, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-      </div>
+    <% @buildings.each do |building| %>
+      <% building.floors.each do |floor| %>
+        <div class="col-xs-8 class">
+          <tr>
+            <td><%= floor.name %></td>
+            <% if current_user_admin? %>
+              <td><%= floor.image_url %></td>
+            <% end %>
+            <td><%= floor.building.name %></td>
+            <td><%= link_to 'Show', floor, :class=>"btn btn-success" %></td>
+            <% if current_user_admin? %>
+              <td><%= link_to 'Edit', edit_floor_path(floor), :class=>"btn btn-warning" %></td>
+              <td><%= link_to 'Destroy', floor, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tr>
+        </div>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+<div id="btnTest"> </div>
 
 <% if current_user_admin? %>
 <%= link_to 'New Floor', new_floor_path, :class=>"btn btn-info" %>

@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+  <div class="alert alert-info">
+    <p id="notice"><%= notice %></p>
+  </div>
+<% end %>
 
 <h1>Listing Buildings</h1>
 
@@ -7,8 +11,8 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Floor</th>
-      <th>Lot status</th>
+      <th>Floors</th>
+      <th>Lots status</th>
       <th colspan="4"></th>
     </tr>
   </thead>
@@ -19,15 +23,7 @@
       <div class="col-xs-8 class">
         <td><%= building.name %></td>
         <td><%= building.description %></td>
-
-        <% building.floors.each do |floor| %>
-        <td>
-          <ul class="list-inline">
-            <li> <h5> <%= floor.name %></h5> </li>
-            <li> <%= link_to 'Show', floor, :class=>"btn btn-success" %> </li>
-          </ul>
-        </td>
-        <% end %>
+        <td><%= building.floors.count %></td>
       </div>
 
       <% div_id_f = "filled#{building.id}" %>

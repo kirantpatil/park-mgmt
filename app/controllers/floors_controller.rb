@@ -6,6 +6,7 @@ class FloorsController < ApplicationController
   # GET /floors.json
   def index
     @floors = Floor.all
+    @buildings = Building.all
   end
 
   # GET /floors/1

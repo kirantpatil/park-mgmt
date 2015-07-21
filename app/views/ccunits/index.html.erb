@@ -8,7 +8,8 @@
       <th>Ip</th>
       <th>Port</th>
       <th>Floor</th>
-      <th colspan="3"></th>
+      <th>Building</th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -19,6 +20,7 @@
         <td><%= ccunit.ip %></td>
         <td><%= ccunit.port %></td>
         <td><%= ccunit.floor.name %></td>
+        <td><%= ccunit.floor.building.name %></td>
         <% if current_user_admin? %>
         <td><%= link_to 'Show', ccunit, :class=>"btn btn-success" %></td>
         <td><%= link_to 'Edit', edit_ccunit_path(ccunit), :class=>"btn btn-warning" %></td>
@@ -31,6 +33,8 @@
 </table>
 
 <br>
+
+<div id="btnTest"> </div>
 
 <% if current_user_admin? %>
 <%= link_to 'New Ccunit', new_ccunit_path, :class=>"btn btn-info" %>

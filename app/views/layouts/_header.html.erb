@@ -13,8 +13,8 @@
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
           <li><%= link_to "Buildings", buildings_path, method: :get %></li>
+          <li><%= link_to "Floors", floors_path, method: :get %></li>
           <% if current_user_admin? %>
-            <li><%= link_to "Floors", floors_path, method: :get %></li>
             <li><%= link_to "Ccunits", ccunits_path, method: :get %></li>
           <% end %>
           <li><%= link_to current_user.name, current_user %></li>

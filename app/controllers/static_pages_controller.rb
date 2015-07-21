@@ -26,6 +26,7 @@ class StaticPagesController < ApplicationController
         sse.write(floor_status, event: 'results')
         sse.write(building_status, event: 'results')
       rescue ClientDisconnected
+        # rescue IOError 
         # When the client disconnects, we'll get an IOError on write
         logger.info "Stream closed"
       ensure
