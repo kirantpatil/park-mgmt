@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'booking/create'
+
+  post 'booking/create'
+
   get 'static_pages/home'
 
   resource :session

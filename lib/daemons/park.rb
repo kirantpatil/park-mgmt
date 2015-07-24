@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 require 'socket'               # Get sockets from stdlib
-#require 'parkmgmt/udpserver'
-
-#require "#{Rails.root}/app/helpers/application_helper"
-#include ApplicationHelper
 
 # You might want to change this
 # ENV["RAILS_ENV"] ||= "production"
@@ -46,6 +42,9 @@ module ParkServ
       slsaddrup = data.unpack("B*")
       slsaddr = slsaddrup[0]
       a = slsaddr.split('')
+      puts ccaddr
+      puts ccport
+      puts zcaddr
 
       c = Ccunit.find_by_ip(ccaddr)
 =begin
@@ -54,15 +53,16 @@ module ParkServ
         j = 1
         for i in 0..a.size-1 
           l = c.zcunits.find_by_zcid(zcaddr).lots.find_by_lotid(j)
-          if ( a[i] == "0" )
-            l.status = "vacant"
-          else
-            l.status = "Occupied"
+          if l.status == "r"
+          elsif  a[i] == "0" 
+            l.status = "v"
+          else 
+            l.status = "o"
           end
           l.save
           j += 1
         end
-      else
+      elsif c.present?
         z = Zcunit.new(zcid: zcaddr, ccunit_id: c.id)
         z.save
         j = 1
@@ -70,14 +70,15 @@ module ParkServ
           l = Lot.new
           l.lotid = j
           if ( a[i] == "0" )
-            l.status = "vacant"
+            l.status = "v"
           else
-            l.status = "Occupied"
+            l.status = "o"
           end
           l.zcunit_id = z.id
           l.save
           j += 1
         end
+      else
       end
     end
   end

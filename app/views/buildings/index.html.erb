@@ -24,15 +24,17 @@
         <td><%= building.description %></td>
         <td><%= building.floors.count %></td>
 
-        <% div_id_f = "filled#{building.id}" %>
+        <% div_id_o = "occupied#{building.id}" %>
         <% div_id_v = "vacant#{building.id}" %>
+        <% div_id_r = "reserved#{building.id}" %>
         <% div_id_t = "total#{building.id}" %>
 
         
         <td>
           <ul class="list-unstyled">
-            <li> <h5> <span class="label label-danger">Occupied</span> <span class="badge"><div id="<%= div_id_f %>" style="display: inline-block;"> </div> </span></h5> </li>
+            <li> <h5> <span class="label label-danger">Occupied</span> <span class="badge"><div id="<%= div_id_o %>" style="display: inline-block;"> </div> </span></h5> </li>
             <li> <h5> <span class="label label-success">Vacant</span> <span class="badge"><div id="<%= div_id_v %>" style="display: inline-block;"> </span> </div> </h5> </li>
+            <li> <h5> <span class="label label-warning">Reserved</span> <span class="badge"><div id="<%= div_id_r %>" style="display: inline-block;"> </span> </div> </h5> </li>
             <li> <h5> <span class="label label-info">Total</span> <span class="badge"><div id="<%= div_id_t %>" style="display: inline-block;"> </div> </span> </h5> </li>
           </ul>
         </td>

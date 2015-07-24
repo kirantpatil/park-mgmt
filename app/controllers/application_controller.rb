@@ -39,17 +39,19 @@ private
   def b_status(building)
     vacant = 0
     occupied = 0
+    reserved = 0
     total = 0
     building.floors.each do |flr|
       flr.ccunits.each do |ccu|
         ccu.zcunits.each do |zcu|
-          vacant += zcu.lots.where(status: "vacant").count
-          occupied += zcu.lots.where(status: "Occupied").count
+          vacant += zcu.lots.where(status: "v").count
+          occupied += zcu.lots.where(status: "o").count
+          reserved += zcu.lots.where(status: "r").count
         end
       end
     end
-    total = vacant + occupied
-    status = {:vacant_b => vacant, :occupied_b => occupied, :total_b => total, :bid => building.id}
+    total = vacant + occupied + reserved
+    status = {:vacant_b => vacant, :occupied_b => occupied, :reserved_b => reserved, :total_b => total, :bid => building.id}
     return status
   end
 
@@ -58,15 +60,17 @@ private
   def f_status(floor)
     vacant = 0
     occupied = 0
+    reserved = 0
     total = 0
     floor.ccunits.each do |ccu|
       ccu.zcunits.each do |zcu|
-        vacant += zcu.lots.where(status: "vacant").count
-        occupied += zcu.lots.where(status: "Occupied").count
+        vacant += zcu.lots.where(status: "v").count
+        occupied += zcu.lots.where(status: "o").count
+        reserved += zcu.lots.where(status: "r").count
       end
     end
-    total = vacant + occupied
-    status = {:vacant => vacant, :occupied => occupied, :total => total, :fid => floor.id, :bid => floor.building.id}
+    total = vacant + occupied + reserved
+    status = {:vacant => vacant, :occupied => occupied, :reserved => reserved , :total => total, :fid => floor.id, :bid => floor.building.id}
     return status
   end
 
@@ -75,13 +79,9 @@ private
   def l_status(zcunit)
     a = ""
     zcunit.lots.each do |lot|
-      if (lot.status == "vacant")
-        a.concat("0")
-      else
-        a.concat("1")
-      end
+        a.concat(lot.status)
     end
-    status = {:zcid => zcunit.zcid, :lstatus => a, :fname => zcunit.ccunit.floor.name, :bname => zcunit.ccunit.floor.building.name}
+    status = {:zcid => zcunit.zcid, :lstatus => a, :fid => zcunit.ccunit.floor.id, :bid => zcunit.ccunit.floor.building.id}
     return status
   end
 
