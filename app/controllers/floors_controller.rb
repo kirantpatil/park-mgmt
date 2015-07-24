@@ -1,6 +1,22 @@
 class FloorsController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :set_floor, only: [:show, :edit, :update, :destroy]
+ 
+  def book
+    slot = params[:slot]
+    sval = slot.split("\-")
+    b = sval[1]
+    f = sval[2]
+    z1 = sval[3]
+    l = sval[4]
+    @building = Building.find_by_id(b)
+    ccu = @building.floors.find_by_id(f).ccunits.first 
+    zcu = ccu.zcunits.find_by_zcid(z1)
+    lot = zcu.lots.find_by_lotid(l)
+    lot.status = "r"
+    lot.save
+  render nothing: true
+  end
 
   # GET /floors
   # GET /floors.json

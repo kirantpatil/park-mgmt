@@ -69,7 +69,7 @@ $(function() {
                   rect.style.setProperty("fill", "green");
                   rect.addEventListener("click", function(){ //alert(this.id); 
                     this.style.setProperty("fill", "orange");
-                        window.open("localhost:3000/booking/create?slot="+this.id,"_self")
+                    $.post("/floor?slot="+this.id)
                   });
                   rect.addEventListener("dblclick", function(){ //alert(this.id); 
                     this.style.setProperty("fill", "green");
