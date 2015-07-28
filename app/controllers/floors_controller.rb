@@ -4,6 +4,7 @@ class FloorsController < ApplicationController
  
   def book
     slot = params[:slot]
+    status = params[:status]
     sval = slot.split("\-")
     b = sval[1]
     f = sval[2]
@@ -13,7 +14,7 @@ class FloorsController < ApplicationController
     ccu = @building.floors.find_by_id(f).ccunits.first 
     zcu = ccu.zcunits.find_by_zcid(z1)
     lot = zcu.lots.find_by_lotid(l)
-    lot.status = "r"
+    lot.status = status
     lot.save
   render nothing: true
   end

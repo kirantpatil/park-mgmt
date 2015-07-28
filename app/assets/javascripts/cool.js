@@ -1,15 +1,6 @@
 $(function() {
 
-   /* 
-     if (!svgdoc) return;
 
-     var rect = svgdoc.getElementById("slot10254");
-     rect.style.setProperty("fill", "green");
-     alert(rect.style.getPropertyValue("fill"));
-  }
-*/ 
-  
-         
     var source = new EventSource('/park_stream');
 
     source.addEventListener('results', function(e){
@@ -67,18 +58,52 @@ $(function() {
                   rect.style.setProperty("fill", "red");
 		} else if(a[i] == "v")  {
                   rect.style.setProperty("fill", "green");
-                  rect.addEventListener("click", function(){ //alert(this.id); 
+ 
+                  function callback() {
                     this.style.setProperty("fill", "orange");
-                    $.post("/floor?slot="+this.id)
-                  });
-                  rect.addEventListener("dblclick", function(){ //alert(this.id); 
-                    this.style.setProperty("fill", "green");
-                  });
+                    $.post("/floor?slot="+this.id+"&status="+"r");
+                    this.removeEventListener("click", callback); 
+                    this.removeEventListener("mouseover", callback1); 
+                    this.removeEventListener("mouseout", callback2); 
+                  }
+
+                  function callback1() {
+                    this.style.setProperty("opacity", "1");
+                  }
+
+                  function callback2() {
+                    this.style.setProperty("opacity", "0.5");
+                  }
+
+                  rect.addEventListener("click", callback); 
+                  rect.addEventListener("mouseover", callback1); 
+                  rect.addEventListener("mouseout", callback2); 
+
 		} else if(a[i] == "r")  {
                   rect.style.setProperty("fill", "orange");
-		}
+
+                  function callback() {
+                    this.style.setProperty("fill", "green");
+                    $.post("/floor?slot="+this.id+"&status="+"v");
+                    this.removeEventListener("dblclick", callback);
+                    this.removeEventListener("mouseover", callback1); 
+                    this.removeEventListener("mouseout", callback2); 
+                  }
+
+                  function callback1() {
+                    this.style.setProperty("opacity", "1");
+                  }
+
+                  function callback2() {
+                    this.style.setProperty("opacity", "0.5");
+                  }
+
+                  rect.addEventListener("dblclick", callback);
+                  rect.addEventListener("mouseover", callback1); 
+                  rect.addEventListener("mouseout", callback2); 
                }
-         }
+             }
+           }
 
 
     source.addEventListener('finished', function(e){
