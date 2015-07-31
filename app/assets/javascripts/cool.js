@@ -48,23 +48,30 @@ $(function() {
 
                var a = b.split("");
                var c;
-	       var rect, color;
+	       //var rect = [];
 	       var i = 0, j = i+1;
                var len = b.length;
 	       //alert (a);
                for (; i < len; i++, j++) {
-                 rect = svgdoc.getElementById("slot-"+bu+"-"+fl+"-"+zcu+"-"+j);
+                  rect = svgdoc.getElementById("slot-"+bu+"-"+fl+"-"+zcu+"-"+j);
                 if (a[i] == "o"){ 
                   rect.style.setProperty("fill", "red");
 		} else if(a[i] == "v")  {
-                  rect.style.setProperty("fill", "green");
  
                   function callback() {
                     this.style.setProperty("fill", "orange");
-                    $.post("/floor?slot="+this.id+"&status="+"r");
-                    this.removeEventListener("click", callback); 
-                    this.removeEventListener("mouseover", callback1); 
-                    this.removeEventListener("mouseout", callback2); 
+                    $.ajax({
+                      url: "/floor?slot="+this.id+"&status="+"r",
+                      type: "post",
+                      // data: values,
+                      success: function(){
+                      },
+                      error: function(){
+                        alert('Retry once again');
+                      }
+                    });
+                    this.removeEventListener("mouseover", callback1, false); 
+                    this.removeEventListener("mouseout", callback2, false); 
                   }
 
                   function callback1() {
@@ -75,19 +82,29 @@ $(function() {
                     this.style.setProperty("opacity", "0.5");
                   }
 
-                  rect.addEventListener("click", callback); 
-                  rect.addEventListener("mouseover", callback1); 
-                  rect.addEventListener("mouseout", callback2); 
+                  rect.style.setProperty("fill", "green");
+               
+                  $(rect).off().one('click', callback);
+
+                  rect.addEventListener("mouseover", callback1, false); 
+                  rect.addEventListener("mouseout", callback2, false); 
 
 		} else if(a[i] == "r")  {
-                  rect.style.setProperty("fill", "orange");
 
                   function callback() {
                     this.style.setProperty("fill", "green");
-                    $.post("/floor?slot="+this.id+"&status="+"v");
-                    this.removeEventListener("dblclick", callback);
-                    this.removeEventListener("mouseover", callback1); 
-                    this.removeEventListener("mouseout", callback2); 
+                    $.ajax({
+                      url: "/floor?slot="+this.id+"&status="+"v",
+                      type: "post",
+                      // data: values,
+                      success: function(){
+                      },
+                      error: function(){
+                        alert('Retry once again');
+                      }
+                    });
+                    this.removeEventListener("mouseover", callback1, false); 
+                    this.removeEventListener("mouseout", callback2, false); 
                   }
 
                   function callback1() {
@@ -98,9 +115,12 @@ $(function() {
                     this.style.setProperty("opacity", "0.5");
                   }
 
-                  rect.addEventListener("dblclick", callback);
-                  rect.addEventListener("mouseover", callback1); 
-                  rect.addEventListener("mouseout", callback2); 
+                  rect.style.setProperty("fill", "orange");
+
+                  $(rect).off().one('click', callback);
+
+                  rect.addEventListener("mouseover", callback1, false); 
+                  rect.addEventListener("mouseout", callback2, false); 
                }
              }
            }

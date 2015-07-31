@@ -1,3 +1,5 @@
+require 'parkmgmt/client'
+
 class FloorsController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :set_floor, only: [:show, :edit, :update, :destroy]
@@ -10,12 +12,19 @@ class FloorsController < ApplicationController
     f = sval[2]
     z1 = sval[3]
     l = sval[4]
+    
     @building = Building.find_by_id(b)
     ccu = @building.floors.find_by_id(f).ccunits.first 
     zcu = ccu.zcunits.find_by_zcid(z1)
     lot = zcu.lots.find_by_lotid(l)
     lot.status = status
     lot.save
+
+    ParkCmd::Client.host = '192.168.16.254'
+    ParkCmd::Client.port = 3073
+    #ParkCmd::Client.set '2112'
+    ParkCmd::Client.set status
+
   render nothing: true
   end
 
