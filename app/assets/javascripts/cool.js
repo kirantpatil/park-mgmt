@@ -1,6 +1,3 @@
-$(function() {
-
-
     var source = new EventSource('/park_stream');
 
     source.addEventListener('results', function(e){
@@ -130,10 +127,3 @@ $(function() {
       console.log('Close:', e.data);
       source.close();
     });
-
-
-          $('#btnTest').click(function(e)
-           {
-           });    
-   
-   });
