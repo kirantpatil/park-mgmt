@@ -6,6 +6,11 @@ class BuildingsController < ApplicationController
   # GET /buildings.json
   def index
     @buildings = Building.all
+      gon.bnumber = @buildings.count
+      gon.bstatus = []
+    @buildings.each do |building|
+      gon.bstatus << b_status(building)
+    end
   end
 
   # GET /buildings/1

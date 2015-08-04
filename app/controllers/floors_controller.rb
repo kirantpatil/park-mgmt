@@ -38,6 +38,13 @@ class FloorsController < ApplicationController
   # GET /floors/1
   # GET /floors/1.json
   def show
+    gon.fstatus = f_status(@floor)
+    gon.lstatus = []
+    @floor.ccunits.each do |ccu|
+      ccu.zcunits.each do |zcu|
+        gon.lstatus << l_status(zcu)
+      end
+    end
   end
 
   # GET /floors/new
@@ -49,7 +56,6 @@ class FloorsController < ApplicationController
   # GET /floors/1/edit
   def edit
     @buildings = Building.all
-    puts params.inspect
   end
  
   # POST /floors

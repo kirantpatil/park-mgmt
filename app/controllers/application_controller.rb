@@ -62,13 +62,13 @@ private
     occupied = 0
     reserved = 0
     total = 0
-    floor.ccunits.each do |ccu|
-      ccu.zcunits.each do |zcu|
-        vacant += zcu.lots.where(status: "v").count
-        occupied += zcu.lots.where(status: "o").count
-        reserved += zcu.lots.where(status: "r").count
-      end
-    end
+      floor.ccunits.each do |ccu|
+          ccu.zcunits.each do |zcu|
+            vacant += zcu.lots.where(status: "v").count
+            occupied += zcu.lots.where(status: "o").count
+            reserved += zcu.lots.where(status: "r").count
+          end
+        end
     total = vacant + occupied + reserved
     status = {:vacant => vacant, :occupied => occupied, :reserved => reserved , :total => total, :fid => floor.id, :bid => floor.building.id}
     return status

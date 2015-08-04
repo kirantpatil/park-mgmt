@@ -31,7 +31,7 @@
               <td><%= floor.image_url %></td>
             <% end %>
             <td><%= floor.building.name %></td>
-            <td><%= link_to 'Show', floor, :class=>"btn btn-success" %></td>
+            <td><%= link_to 'Show', floor, :class=>"btn btn-success", 'data-no-turbolink' => true %></td>
             <% if current_user_admin? %>
               <td><%= link_to 'Edit', edit_floor_path(floor), :class=>"btn btn-warning" %></td>
               <td><%= link_to 'Destroy', floor, :class=>"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>

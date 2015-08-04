@@ -45,10 +45,8 @@
 
                var a = b.split("");
                var c;
-	       //var rect = [];
 	       var i = 0, j = i+1;
                var len = b.length;
-	       //alert (a);
                for (; i < len; i++, j++) {
                   rect = svgdoc.getElementById("slot-"+bu+"-"+fl+"-"+zcu+"-"+j);
                 if (a[i] == "o"){ 
@@ -127,3 +125,45 @@
       console.log('Close:', e.data);
       source.close();
     });
+
+var gonfix;
+gonfix = function(){
+    eval($("#gonvariables > script").html());
+};
+
+$(document).on('page:restore', gonfix);
+
+$(function() {
+  
+           if ( typeof gon.bnumber != "undefined") {
+           var bcount = gon.bnumber;
+           var bstatus = gon.bstatus;
+
+           for(var i = 0; i < bcount; i++) {
+              $('#vacant'+bstatus[i].bid).text(bstatus[i].vacant_b);
+              $('#occupied'+bstatus[i].bid).text(bstatus[i].occupied_b);
+              $('#reserved'+bstatus[i].bid).text(bstatus[i].reserved_b);
+              $('#total'+bstatus[i].bid).text(bstatus[i].total_b);
+            }
+          }
+
+           if ( typeof gon.fstatus != "undefined") {
+             var fstatus = gon.fstatus;
+              $('#vacant'+fstatus.fid+fstatus.bid).text(fstatus.vacant);
+              $('#occupied'+fstatus.fid+fstatus.bid).text(fstatus.occupied);
+              $('#reserved'+fstatus.fid+fstatus.bid).text(fstatus.reserved);
+              $('#total'+fstatus.fid+fstatus.bid).text(fstatus.total);
+           }
+           
+      if ( typeof gon.lstatus != "undefined") {
+        var l_status = gon.lstatus;
+        for (var i = 0; i < l_status.length; i++) {
+          var b = l_status[i].lstatus;
+          var zcu = l_status[i].zcid;
+          var floor = l_status[i].fid;
+          var building = l_status[i].bid;
+          svg_change(b,zcu,floor,building);
+       }
+     }
+});
+
