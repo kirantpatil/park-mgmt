@@ -76,12 +76,12 @@ private
 
   helper_method :f_status
 
-  def l_status(zcunit)
+  def l_status(zcunit, offset)
     a = ""
     zcunit.lots.each do |lot|
         a.concat(lot.status)
     end
-    status = {:zcid => zcunit.zcid, :lstatus => a, :fid => zcunit.ccunit.floor.id, :bid => zcunit.ccunit.floor.building.id}
+    status = {:zcid => zcunit.zcid, :lstatus => a, :fid => zcunit.ccunit.floor.id, :bid => zcunit.ccunit.floor.building.id, :offset => offset}
     return status
   end
 

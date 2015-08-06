@@ -7,7 +7,8 @@
       var zcu = $.parseJSON(e.data).zcid;
       var floor = $.parseJSON(e.data).fid;
       var building = $.parseJSON(e.data).bid;
-      svg_change(b,zcu,floor,building);
+      var offset = $.parseJSON(e.data).offset;
+          svg_change(b,zcu,floor,building,offset);
 
       } else if ($.parseJSON(e.data).total){
 
@@ -38,20 +39,29 @@
     });
        
 
-	function svg_change(b,zcu,fl,bu) {
+	function svg_change(b,zcu,fl,bu,offset) {
+       
           var object = document.getElementById("" + bu + fl);
-          var svgdoc;
-            svgdoc = object.contentDocument;
+          var svgdoc = object.contentDocument;
 
                var a = b.split("");
-               var c;
-	       var i = 0, j = i+1;
+	       var i = 0,  j = offset+1;
                var len = b.length;
+               var rect;
+
                for (; i < len; i++, j++) {
-                  rect = svgdoc.getElementById("slot-"+bu+"-"+fl+"-"+zcu+"-"+j);
+                 lot = "slot-"+bu+"-"+fl+"-"+zcu+"-"+j;
+                 rect = svgdoc.getElementById("slot-"+j);
+                 if ( rect == null) {
+                   rect = svgdoc.getElementById(lot);
+                   //alert("Rect is "+rect.id);
+                 }
+                 rect.setAttribute("id", lot);
+                  // alert("Rect is "+rect.id);
                 if (a[i] == "o"){ 
                   rect.style.setProperty("fill", "red");
 		} else if(a[i] == "v")  {
+                //  alert (" ZCU is "+zcu+" slot "+j);
  
                   function callback() {
                     this.style.setProperty("fill", "orange");
@@ -79,7 +89,7 @@
 
                   rect.style.setProperty("fill", "green");
                
-                  $(rect).off().one('click', callback);
+                   $(rect).off().one('click', callback);
 
                   rect.addEventListener("mouseover", callback1, false); 
                   rect.addEventListener("mouseout", callback2, false); 
@@ -157,12 +167,14 @@ $(function() {
            
       if ( typeof gon.lstatus != "undefined") {
         var l_status = gon.lstatus;
+        alert ( "length "+l_status.length );
         for (var i = 0; i < l_status.length; i++) {
           var b = l_status[i].lstatus;
           var zcu = l_status[i].zcid;
           var floor = l_status[i].fid;
           var building = l_status[i].bid;
-          svg_change(b,zcu,floor,building);
+          var offset = l_status[i].offset;
+          svg_change(b,zcu,floor,building,offset);
        }
      }
 });

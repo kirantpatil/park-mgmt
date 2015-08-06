@@ -65,7 +65,12 @@ module ParkServ
       elsif c.present?
         z = Zcunit.new(zcid: zcaddr, ccunit_id: c.id)
         z.save
-        j = 1
+        count = 0
+        @zcu = c.zcunits
+        @zcu.each do |zcu|
+          count += zcu.lots.count
+        end
+        j = count + 1
         for i in 0..a.size-1 
           l = Lot.new
           l.lotid = j

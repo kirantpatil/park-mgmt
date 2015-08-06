@@ -40,9 +40,11 @@ class FloorsController < ApplicationController
   def show
     gon.fstatus = f_status(@floor)
     gon.lstatus = []
+    offset = 0
     @floor.ccunits.each do |ccu|
       ccu.zcunits.each do |zcu|
-        gon.lstatus << l_status(zcu)
+        gon.lstatus << l_status(zcu, offset)
+        offset += zcu.lots.count
       end
     end
   end

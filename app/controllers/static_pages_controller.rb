@@ -13,13 +13,21 @@ class StaticPagesController < ApplicationController
       begin
         ccunit = last_updated.zcunit.ccunit
         floor = ccunit.floor
-        building = ccunit.floor.building
+        building = floor.building
         a = ccunit.zcunits.pluck(:zcid)
         floor_status = f_status(floor)
         building_status = b_status(building)
 
         for i in 0..a.size-1
-          lot_status = l_status(ccunit.zcunits.find_by_zcid(a[i]))
+          zcu = ccunit.zcunits.find_by_zcid(a[i])
+          if i == 0
+            offset = 0
+          else
+            i -= 1
+            zcu1 = ccunit.zcunits.find_by_zcid(a[i])
+            offset += zcu1.lots.count
+          end
+          lot_status = l_status(zcu, offset)
           sse.write(lot_status, event: 'results')
         end
 
