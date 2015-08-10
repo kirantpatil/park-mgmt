@@ -54,16 +54,14 @@
                  rect = svgdoc.getElementById("slot-"+j);
                  if ( rect == null) {
                    rect = svgdoc.getElementById(lot);
-                   //alert("Rect is "+rect.id);
                  }
                  rect.setAttribute("id", lot);
-                  // alert("Rect is "+rect.id);
                 if (a[i] == "o"){ 
                   rect.style.setProperty("fill", "red");
 		} else if(a[i] == "v")  {
-                //  alert (" ZCU is "+zcu+" slot "+j);
- 
                   function callback() {
+                    if (this.style.getPropertyValue("fill") == "red")
+                      return false;
                     this.style.setProperty("fill", "orange");
                     $.ajax({
                       url: "/floor?slot="+this.id+"&status="+"r",
@@ -167,7 +165,6 @@ $(function() {
            
       if ( typeof gon.lstatus != "undefined") {
         var l_status = gon.lstatus;
-        alert ( "length "+l_status.length );
         for (var i = 0; i < l_status.length; i++) {
           var b = l_status[i].lstatus;
           var zcu = l_status[i].zcid;

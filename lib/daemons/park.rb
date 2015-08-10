@@ -50,7 +50,16 @@ module ParkServ
 =begin
 =end
       if c.zcunits.find_by_zcid(zcaddr).present?
-        j = 1
+        count = 0
+        @zcu = c.zcunits
+        @zcu.each do |zcu|
+          if zcu.zcid != zcaddr
+            count += zcu.lots.count
+          else
+            break
+          end
+        end
+        j = count + 1
         for i in 0..a.size-1 
           l = c.zcunits.find_by_zcid(zcaddr).lots.find_by_lotid(j)
           if l.status == "r"
@@ -74,7 +83,7 @@ module ParkServ
         for i in 0..a.size-1 
           l = Lot.new
           l.lotid = j
-          if ( a[i] == "0" )
+          if a[i] == "0"
             l.status = "v"
           else
             l.status = "o"
