@@ -64,7 +64,7 @@
                       return false;
                     this.style.setProperty("fill", "orange");
                     $.ajax({
-                      url: "/floor?slot="+this.id+"&status="+"r",
+                      url: "/floor/reserve?slot="+this.id+"&status="+"r",
                       type: "post",
                       // data: values,
                       success: function(){
@@ -84,10 +84,10 @@
                   function callback2() {
                     this.style.setProperty("opacity", "0.5");
                   }
-
+  
                   rect.style.setProperty("fill", "green");
                
-                   $(rect).off().one('click', callback);
+                  $(rect).off().one('click', callback);
 
                   rect.addEventListener("mouseover", callback1, false); 
                   rect.addEventListener("mouseout", callback2, false); 
@@ -97,7 +97,7 @@
                   function callback() {
                     this.style.setProperty("fill", "green");
                     $.ajax({
-                      url: "/floor?slot="+this.id+"&status="+"v",
+                      url: "/floor/reserve?slot="+this.id+"&status="+"v",
                       type: "post",
                       // data: values,
                       success: function(){
@@ -117,7 +117,7 @@
                   function callback2() {
                     this.style.setProperty("opacity", "0.5");
                   }
-
+                  
                   rect.style.setProperty("fill", "orange");
 
                   $(rect).off().one('click', callback);
@@ -174,5 +174,21 @@ $(function() {
           svg_change(b,zcu,floor,building,offset);
        }
      }
+
+  $("#threshold_id").change(function() {
+    var value = $('select#threshold_id :selected').val();
+                    $.ajax({
+                      url: "/floor/threshold?value="+value,
+                      type: "post",
+                      // data: values,
+                      success: function(){
+                      },
+                      error: function(){
+                        alert('Retry once again');
+                      }
+                    });
+    //return false;
+  });
+
 });
 

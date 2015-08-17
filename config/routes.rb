@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :floors
   resources :buildings
 
-  post '/floor' => 'floors#book'
+  post '/floor/reserve' => 'floors#book'
+  post '/floor/threshold' => 'floors#threshold'
   #
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

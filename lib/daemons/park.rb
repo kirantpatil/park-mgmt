@@ -39,7 +39,8 @@ module ParkServ
       ccaddr = cciport[2]
       zcaddrasc = data.slice!(0)
       zcaddr = zcaddrasc.unpack("H*").first.to_i(16)
-      slsaddrup = data.unpack("B*")
+      #slsaddrup = data.unpack("B*")
+      slsaddrup = data.unpack("b*")
       slsaddr = slsaddrup[0]
       a = slsaddr.split('')
       puts ccaddr
@@ -49,7 +50,7 @@ module ParkServ
       c = Ccunit.find_by_ip(ccaddr)
 =begin
 =end
-      if c.zcunits.find_by_zcid(zcaddr).present?
+      if c.present? && c.zcunits.find_by_zcid(zcaddr).present?
         count = 0
         @zcu = c.zcunits
         @zcu.each do |zcu|
@@ -60,7 +61,7 @@ module ParkServ
           end
         end
         j = count + 1
-        for i in 0..a.size-1 
+        for i in 0..63   #a.size-1 
           l = c.zcunits.find_by_zcid(zcaddr).lots.find_by_lotid(j)
           if l.status == "r"
           elsif  a[i] == "0" 
@@ -71,7 +72,7 @@ module ParkServ
           l.save
           j += 1
         end
-      elsif c.present?
+      elsif c.present? && zcaddr != 0
         z = Zcunit.new(zcid: zcaddr, ccunit_id: c.id)
         z.save
         count = 0
@@ -80,7 +81,7 @@ module ParkServ
           count += zcu.lots.count
         end
         j = count + 1
-        for i in 0..a.size-1 
+        for i in 0..63  #a.size-1 
           l = Lot.new
           l.lotid = j
           if a[i] == "0"

@@ -19,11 +19,46 @@ class FloorsController < ApplicationController
     lot = zcu.lots.find_by_lotid(l)
     lot.status = status
     lot.save
+  
+    ary = ""
+    ary << zcu.zcid.chr
+    ary << lot.lotid.chr
+    if status == "r"
+      ary << 32.chr
+    end
+    if status == "v"
+      ary << 128.chr
+    end
+    for i in 1..15
+      ary << 0.chr
+    end
+    reserve_cmd = ary
 
-    ParkCmd::Client.host = '192.168.16.254'
-    ParkCmd::Client.port = 3073
-    #ParkCmd::Client.set '2112'
-    ParkCmd::Client.set status
+    ParkCmd::Client.host = ccu.ip
+    ParkCmd::Client.port = ccu.port
+    ParkCmd::Client.set reserve_cmd
+
+  render nothing: true
+  end
+
+  def threshold
+    th_value = params[:value]
+    threshold = th_value.to_i + 96
+    ary = ""
+    ary << 5.chr
+    ary << 0.chr
+    ary << threshold.chr
+    for i in 1..15
+      ary << 0.chr
+    end
+    threshold_cmd = ary
+
+    @ccu = Ccunit.all
+    @ccu.each do |ccu| 
+      ParkCmd::Client.host = ccu.ip
+      ParkCmd::Client.port = ccu.port
+      ParkCmd::Client.set threshold_cmd
+    end
 
   render nothing: true
   end
