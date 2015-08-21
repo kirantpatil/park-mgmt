@@ -8,6 +8,13 @@
   <% if current_user_admin? %>
     <ul class="list-inline pull-right">
       <li><%= link_to 'Edit', edit_floor_path(@floor), :class=>"btn btn-warning" %></li>  
+      <li><%= link_to 'Prev', @floor.prev, :class=>"btn btn-warning" %></li>  
+      <li><%= link_to 'Next', @floor.next, :class=>"btn btn-warning" %></li>  
+    </ul>
+  <% else %>
+    <ul class="list-inline pull-right">
+      <li><%= link_to 'Prev', @floor.prev, :class=>"btn btn-warning" %></li>  
+      <li><%= link_to 'Next', @floor.next, :class=>"btn btn-warning" %></li>  
     </ul>
   <% end %>
 </div>

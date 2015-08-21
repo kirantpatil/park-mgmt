@@ -141,7 +141,7 @@ gonfix = function(){
 
 $(document).on('page:restore', gonfix);
 
-$(function() {
+var ready = function() {
   
            if ( typeof gon.bnumber != "undefined") {
            var bcount = gon.bnumber;
@@ -194,8 +194,8 @@ $(function() {
                     });
     return false;
   });
-
-});
-
+};
 
 
+$(document).ready(ready);
+$(document).on('page:load', ready);
