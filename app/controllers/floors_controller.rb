@@ -19,7 +19,9 @@ class FloorsController < ApplicationController
     lot = zcu.lots.find_by_lotid(l)
     lot.status = status
     lot.save
-  
+ 
+=begin 
+=end
     ary = ""
     ary << zcu.zcid.chr
     ary << lot.lotid.chr
@@ -53,6 +55,8 @@ class FloorsController < ApplicationController
     end
     threshold_cmd = ary
 
+=begin 
+=end
     @ccu = Ccunit.all
     @ccu.each do |ccu| 
       ParkCmd::Client.host = ccu.ip

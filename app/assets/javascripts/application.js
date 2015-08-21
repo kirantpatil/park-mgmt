@@ -15,5 +15,4 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap
-//= require jquery.qtip.js
 //= require_tree .

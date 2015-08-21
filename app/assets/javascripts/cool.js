@@ -7,8 +7,11 @@
       var zcu = $.parseJSON(e.data).zcid;
       var floor = $.parseJSON(e.data).fid;
       var building = $.parseJSON(e.data).bid;
-      var offset = $.parseJSON(e.data).offset;
-          svg_change(b,zcu,floor,building,offset);
+      var offset = $.parseJSON(e.data).offset;  
+
+      var object = document.getElementById("" + building + floor);
+          var svgdoc = object.contentDocument;
+          svg_change(b,zcu,floor,building,offset,svgdoc);
 
       } else if ($.parseJSON(e.data).total){
 
@@ -39,10 +42,7 @@
     });
        
 
-	function svg_change(b,zcu,fl,bu,offset) {
-       
-          var object = document.getElementById("" + bu + fl);
-          var svgdoc = object.contentDocument;
+	function svg_change(b,zcu,fl,bu,offset,svgdoc) {
 
                var a = b.split("");
 	       var i = 0,  j = offset+1;
@@ -51,6 +51,7 @@
 
                for (; i < len; i++, j++) {
                  lot = "slot-"+bu+"-"+fl+"-"+zcu+"-"+j;
+                 //rect = svgdoc.getElementById("slot-"+j);
                  rect = svgdoc.getElementById("slot-"+j);
                  if ( rect == null) {
                    rect = svgdoc.getElementById(lot);
@@ -126,7 +127,7 @@
                   rect.addEventListener("mouseout", callback2, false); 
                }
              }
-           }
+        }
 
 
     source.addEventListener('finished', function(e){
@@ -171,7 +172,12 @@ $(function() {
           var floor = l_status[i].fid;
           var building = l_status[i].bid;
           var offset = l_status[i].offset;
-          svg_change(b,zcu,floor,building,offset);
+  
+          var object = document.getElementById("" + building + floor);
+          object.addEventListener("load",function() {
+          var svgdoc = object.contentDocument;
+          svg_change(b,zcu,floor,building,offset,svgdoc);
+         }, false);
        }
      }
 
@@ -187,7 +193,7 @@ $(function() {
                         alert('Retry once again');
                       }
                     });
-    //return false;
+    return false;
   });
 
 });

@@ -4,20 +4,20 @@
   </div>
 <% end %>
 
-<div class="page-header">
+<!-- <div class="page-header">
+-->
+<div>
   <% if current_user_admin? %>
     <ul class="list-inline pull-right">
       <li><%= link_to 'Edit', edit_floor_path(@floor), :class=>"btn btn-warning" %></li>  
-      <li><%= link_to 'Back', floors_path, :class=>"btn btn-default" %></li>
     </ul>
-  <% else %>
-    <%= link_to 'Back', floors_path, :class=>"btn btn-default pull-right" %>
   <% end %>
-    <h3><%= @floor.building.name %> : <%= @floor.name %></h3>
 </div>
 
+  <h3><%= @floor.building.name %> : <%= @floor.name %></h3>
+
 <div class="row">
-<div class="col-xs-12 col-sm-6 col-md-8">
+<div class="col-sm-10">
   <div class="embed-responsive embed-responsive-16by9">
      <object class="embed-responsive-item" id="<%= @floor.building.id%><%= @floor.id%>" type="image/svg+xml" data=<%=asset_path @floor.image_url%>>Your browser does not support SVG</object>
   </div>
@@ -29,7 +29,7 @@
 <% div_id_t = "total#{@floor.id}#{@floor.building.id}" %>
 
 
-<div class="col-xs-6 col-md-4">
+<div class="col-sm-2">
   <ul class="list-unstyled">
     <li> <h4> Lots status </h4> </li>
     <li> <h5> <span class="label label-danger">Occupied</span> <span class="badge"><div id="<%= div_id_o %>" style="display: inline-block;"> </div> </span> </h5> </li>
