@@ -18,10 +18,10 @@ production:
 development:
   adapter: postgresql
   encoding: unicode
-  database: gitlab_ci_development
+  database: park_devel
   pool: 5
-  username: postgres
-  password: "secure password"
+  username: kiran
+  password: "patil"
   # socket: /tmp/postgresql.sock
 
 # Warning: The database defined as "test" will be erased and

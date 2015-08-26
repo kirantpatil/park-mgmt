@@ -51,7 +51,6 @@
 
                for (; i < len; i++, j++) {
                  lot = "slot-"+bu+"-"+fl+"-"+zcu+"-"+j;
-                 //rect = svgdoc.getElementById("slot-"+j);
                  rect = svgdoc.getElementById("slot-"+j);
                  if ( rect == null) {
                    rect = svgdoc.getElementById(lot);
