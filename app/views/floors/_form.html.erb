@@ -1,4 +1,4 @@
-<%= form_for(@floor) do |f| %>
+<%= form_for(@floor)  do |f| %>
   <% if @floor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@floor.errors.count, "error") %> prohibited this floor from being saved:</h2>
@@ -17,7 +17,7 @@
   </div>
   <div class="form-group">
     <%= f.label :image_name, :for=>"imgField" %><br>
-    <%= f.text_field :image_url, :class=>"form-control", :id=>"imgField"  %>
+    <%= f.file_field :image, :class=>"form-control", :id=>"imgField"  %>
   </div>
   <div class="form-group">
     <%= f.label :building_id, :for=>"buildField" %><br>

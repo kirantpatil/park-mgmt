@@ -28,7 +28,7 @@
           <tr>
             <td><%= floor.name %></td>
             <% if current_user_admin? %>
-              <td><%= floor.image_url %></td>
+              <td><%= floor.image.url %></td>
             <% end %>
             <td><%= floor.building.name %></td>
             <td><%= link_to 'Show', floor, :class=>"btn btn-success" %></td>
