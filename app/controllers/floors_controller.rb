@@ -5,20 +5,15 @@ class FloorsController < ApplicationController
   before_action :set_floor, only: [:show, :edit, :update, :destroy]
  
   def book
-    slot = params[:slot]
+    lot = params[:lot]
     status = params[:status]
-    sval = slot.split("\-")
-    b = sval[1]
-    f = sval[2]
-    z1 = sval[3]
-    l = sval[4]
+    sval = lot.split("\-")
+    bid = sval[1]
+    fid = sval[2]
+    zid = sval[3]
+    lid = sval[4]
     
-    @building = Building.find_by_id(b)
-    ccu = @building.floors.find_by_id(f).ccunits.first 
-    zcu = ccu.zcunits.find_by_zcid(z1)
-    lot = zcu.lots.find_by_lotid(l)
-    lot.status = status
-    lot.save
+    ccu, zcu, lot = Floor.book_lot(bid, fid, zid, lid, status)
  
 =begin 
 =end
@@ -77,12 +72,12 @@ class FloorsController < ApplicationController
   # GET /floors/1
   # GET /floors/1.json
   def show
-    gon.fstatus = f_status(@floor)
+    gon.fstatus = Floor.f_status(@floor)
     gon.lstatus = []
     offset = 0
     @floor.ccunits.each do |ccu|
       ccu.zcunits.each do |zcu|
-        gon.lstatus << l_status(zcu, offset)
+        gon.lstatus << Zcunit.l_status(zcu, offset)
         offset += zcu.lots.count
       end
     end

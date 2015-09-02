@@ -9,7 +9,7 @@ class BuildingsController < ApplicationController
       gon.bnumber = @buildings.count
       gon.bstatus = []
     @buildings.each do |building|
-      gon.bstatus << b_status(building)
+      gon.bstatus << Building.b_status(building)
     end
   end
 

@@ -15,8 +15,8 @@ class StaticPagesController < ApplicationController
         floor = ccunit.floor
         building = floor.building
         a = ccunit.zcunits.pluck(:zcid)
-        floor_status = f_status(floor)
-        building_status = b_status(building)
+        floor_status = Floor.f_status(floor)
+        building_status = Building.b_status(building)
 
         for i in 0..a.size-1
           zcu = ccunit.zcunits.find_by_zcid(a[i])
@@ -27,7 +27,7 @@ class StaticPagesController < ApplicationController
             zcu1 = ccunit.zcunits.find_by_zcid(a[i])
             offset += zcu1.lots.count
           end
-          lot_status = l_status(zcu, offset)
+          lot_status = Zcunit.l_status(zcu, offset)
           sse.write(lot_status, event: 'results')
         end
 

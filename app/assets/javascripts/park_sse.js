@@ -64,7 +64,7 @@
                       return false;
                     this.style.setProperty("fill", "orange");
                     $.ajax({
-                      url: "/floor/reserve?slot="+this.id+"&status="+"r",
+                      url: "/floor/reserve?lot="+this.id+"&status="+"r",
                       type: "post",
                       // data: values,
                       success: function(){
@@ -97,7 +97,7 @@
                   function callback() {
                     this.style.setProperty("fill", "green");
                     $.ajax({
-                      url: "/floor/reserve?slot="+this.id+"&status="+"v",
+                      url: "/floor/reserve?lot="+this.id+"&status="+"v",
                       type: "post",
                       // data: values,
                       success: function(){
