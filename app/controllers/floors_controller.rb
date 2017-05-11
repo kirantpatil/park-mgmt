@@ -34,6 +34,7 @@ class FloorsController < ApplicationController
     ParkCmd::Client.host = ccu.ip
     ParkCmd::Client.port = ccu.port
     ParkCmd::Client.set reserve_cmd
+    ParkCmd::Client.set reserve_cmd
 
   render nothing: true
   end

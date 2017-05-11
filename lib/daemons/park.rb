@@ -46,6 +46,7 @@ module ParkServ
       puts ccaddr
       puts ccport
       puts zcaddr
+      # puts a
 
       c = Ccunit.find_by_ip(ccaddr)
 =begin
