@@ -29,8 +29,13 @@ module ParkCmd
 
     def self.request(string)
       # Create a new connection for each operation.
+      begin
         @client = UDPSocket.new
+	answer = 'Y'
         @client.connect(host, port)
+      rescue
+	answer = 'N'
+      end while answer == 'N'
         @client.send(string, 0)
     end
   end
