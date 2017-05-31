@@ -5,9 +5,7 @@ class Zcunit < ActiveRecord::Base
 
   def self.l_status(zcunit, offset)
     a = ""
-    zcunit.lots.order(:lotid).each do |lot|
-      a.concat(lot.status)
-    end
+    a = zcunit.lots.order(:lotid).pluck(:status).join()
     status = {:zcid => zcunit.zcid, :lstatus => a, :fid => zcunit.ccunit.floor.id, :bid => zcunit.ccunit.floor.building.id, :offset => offset}
     return status
   end
